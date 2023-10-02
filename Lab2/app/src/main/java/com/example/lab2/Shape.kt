@@ -6,11 +6,11 @@ import android.graphics.Paint
 abstract class Shape (paintSettings : Paint) {
   private var isEraserMode: Boolean = true
 
-  private var startXCoordinate: Float = 0f
-  private var startYCoordinate: Float = 0f
+  protected var startXCoordinate: Float = 0f
+  protected var startYCoordinate: Float = 0f
 
-  private var endXCoordinate: Float = 0f
-  private var endYCoordinate: Float = 0f
+  protected var endXCoordinate: Float = 0f
+  protected var endYCoordinate: Float = 0f
 
   fun defineEraserMode (eraserMode: Boolean) {
     isEraserMode = eraserMode
