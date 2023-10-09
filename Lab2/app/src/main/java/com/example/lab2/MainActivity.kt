@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
   private lateinit var mainMenu: Menu
   private var menuItemMap: MutableMap<Int, CustomDrawingView.PrimitivesSelection> = mutableMapOf()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     drawingView = CustomDrawingView(this)
@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     currentPrimitive = primitive
     drawingView.setShapePrimitiveEditor(currentPrimitive)
     updateMenuCheckState(currentPrimitive)
+    supportActionBar?.title = getActionBarTitle(currentPrimitive)
   }
 
   override fun onCreateOptionsMenu (menu: Menu?): Boolean {
@@ -39,6 +40,15 @@ class MainActivity : AppCompatActivity() {
     menuItemMap[R.id.rectSelect] = CustomDrawingView.PrimitivesSelection.RECTANGLE
     updateMenuCheckState(currentPrimitive)
     return true
+  }
+
+  private fun getActionBarTitle (primitive: CustomDrawingView.PrimitivesSelection): String {
+    return when (primitive) {
+      CustomDrawingView.PrimitivesSelection.ELLIPSE -> "Еліпс"
+      CustomDrawingView.PrimitivesSelection.LINE -> "Лінія"
+      CustomDrawingView.PrimitivesSelection.DOT -> "Крапка"
+      CustomDrawingView.PrimitivesSelection.RECTANGLE -> "Прямокутник"
+    }
   }
 
   override fun onOptionsItemSelected (item: MenuItem): Boolean {
