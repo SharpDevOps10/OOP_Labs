@@ -5,6 +5,7 @@ import com.example.lab2.Shape
 import com.example.lab2.ShapeEditor
 import com.example.lab2.shape_primitives.RectangleShape
 
+
 class RectangleEditor (private val paintSettings: Paint, private val shapesList: MutableList<Shape>) : ShapeEditor(paintSettings, shapesList) {
   private var rectShape: RectangleShape? = null
   private var centerX: Float = 0f
@@ -18,6 +19,10 @@ class RectangleEditor (private val paintSettings: Paint, private val shapesList:
   }
 
   override fun onTouchUp() {
+    rectShape?.let {
+      addShapeToEditor(it, shapesList)
+      it.toggleDashed()
+    }
     rectShape = null
   }
 
