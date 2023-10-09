@@ -5,7 +5,7 @@ import com.example.lab2.Shape
 import com.example.lab2.ShapeEditor
 import com.example.lab2.shape_primitives.LineShape
 
-class LineEditor (private val paintSettings: Paint, private val shapesList: MutableList<Shape>) : ShapeEditor(paintSettings, shapesList)  {
+class LineEditor (private val paintSettings: Paint, private val shapesList: MutableList<Shape>) : ShapeEditor(paintSettings, shapesList) {
   private var currentLine: LineShape? = null
 
   override fun onTouchDown(x: Float, y: Float) {
@@ -14,6 +14,10 @@ class LineEditor (private val paintSettings: Paint, private val shapesList: Muta
   }
 
   override fun onTouchUp() {
+    currentLine?.let {
+      it.toggleDashed()
+      addShapeToEditor(it, shapesList)
+    }
     currentLine = null
   }
 
@@ -24,5 +28,4 @@ class LineEditor (private val paintSettings: Paint, private val shapesList: Muta
       addShapeToEditor(lineShape, shapesList)
     }
   }
-
 }
