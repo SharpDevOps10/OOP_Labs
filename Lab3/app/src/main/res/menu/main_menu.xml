@@ -17,20 +17,24 @@
         app:showAsAction="always"
         android:icon="@drawable/rectangle_disabled"/>
     <item
-        android:title="Елліпс"
+        android:title="Еліпс"
         android:id="@+id/ellipseIcon"
         app:showAsAction="always"
         android:icon="@drawable/ellipse_disabled"/>
     <item
         android:title="Крапка"
+        android:checkable="true"
         android:id="@+id/dotSelect"/>
     <item
         android:title="Лінія"
+        android:checkable="true"
         android:id="@+id/lineSelect"/>
     <item
         android:title="Прямокутник"
+        android:checkable="true"
         android:id="@+id/rectangleSelect"/>
     <item
         android:title="Еліпс"
+        android:checkable="true"
         android:id="@+id/ellipseSelect"/>
 </menu>
