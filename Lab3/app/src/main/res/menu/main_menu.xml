@@ -1,43 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_file"
-        android:title="Файл">
-
-        <menu>
-
-        </menu>
-    </item>
-
+        android:title="Крапка"
+        android:id="@+id/dotIcon"
+        app:showAsAction="always"
+        android:icon="@drawable/dot_disabled"/>
     <item
-        android:id="@+id/menu_objects"
-        android:title="Об’єкти"
-        app:showAsAction="never">
-        <menu>
-            <item
-                android:id="@+id/dotSelect"
-                android:title="Крапка"
-                android:checkable="true" />
-            <item
-                android:id="@+id/lineSelect"
-                android:title="Лінія"
-                android:checkable="true" />
-            <item
-                android:id="@+id/rectSelect"
-                android:title="Прямокутник"
-                android:checkable="true" />
-            <item
-                android:id="@+id/ellipseSelect"
-                android:title="Еліпс"
-                android:checkable="true" />
-        </menu>
-    </item>
-
+        android:title="Лінія"
+        android:id="@+id/lineIcon"
+        app:showAsAction="always"
+        android:icon="@drawable/line_disabled"/>
     <item
-        android:id="@+id/menu_help"
-        android:title="Довідка">
-        <menu>
-
-        </menu>
-    </item>
+        android:title="Прямокутник"
+        android:id="@+id/rectangleIcon"
+        app:showAsAction="always"
+        android:icon="@drawable/rectangle_disabled"/>
+    <item
+        android:title="Елліпс"
+        android:id="@+id/ellipseIcon"
+        app:showAsAction="always"
+        android:icon="@drawable/ellipse_disabled"/>
+    <item
+        android:title="Крапка"
+        android:id="@+id/dotSelect"/>
+    <item
+        android:title="Лінія"
+        android:id="@+id/lineSelect"/>
+    <item
+        android:title="Прямокутник"
+        android:id="@+id/rectangleSelect"/>
+    <item
+        android:title="Еліпс"
+        android:id="@+id/ellipseSelect"/>
 </menu>
