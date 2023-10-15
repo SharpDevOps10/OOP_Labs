@@ -3,78 +3,97 @@ package com.example.lab3
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 class MainActivity : AppCompatActivity() {
-
-  private lateinit var drawingView: CustomDrawingView
-  private var currentPrimitive: CustomDrawingView.PrimitivesSelection = CustomDrawingView.PrimitivesSelection.DOT
+  private lateinit var mainCanvas: CustomDrawingView
+  private lateinit var currentSelectedOption: MenuItem
   private lateinit var mainMenu: Menu
-  private var menuItemMap: MutableMap<Int, CustomDrawingView.PrimitivesSelection> = mutableMapOf()
 
-  override fun onCreate (savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    drawingView = CustomDrawingView(this)
-    drawingView.setShapePrimitiveEditor(currentPrimitive)
-    setContentView(drawingView)
-    showSystemBars()
+    mainCanvas = CustomDrawingView(this)
+    mainCanvas.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.LINE)
+    setContentView(mainCanvas)
+    showSystemUI()
   }
 
-  private fun setCurrentPrimitive (primitive: CustomDrawingView.PrimitivesSelection) {
-    currentPrimitive = primitive
-    drawingView.setShapePrimitiveEditor(currentPrimitive)
-    updateMenuCheckState(currentPrimitive)
-    supportActionBar?.title = getActionBarTitle(currentPrimitive)
-  }
-
-  override fun onCreateOptionsMenu (menu: Menu?): Boolean {
-    menuInflater.inflate(R.menu.main_menu, menu)
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    val mainMenuInflater: MenuInflater = menuInflater
+    mainMenuInflater.inflate(R.menu.main_menu, menu)
     mainMenu = menu!!
-
-    menuItemMap[R.id.ellipseSelect] = CustomDrawingView.PrimitivesSelection.ELLIPSE
-    menuItemMap[R.id.lineSelect] = CustomDrawingView.PrimitivesSelection.LINE
-    menuItemMap[R.id.dotSelect] = CustomDrawingView.PrimitivesSelection.DOT
-    menuItemMap[R.id.rectSelect] = CustomDrawingView.PrimitivesSelection.RECTANGLE
-    updateMenuCheckState(currentPrimitive)
+    currentSelectedOption = mainMenu.findItem(R.id.lineIcon)
+    setOptionIcon(currentSelectedOption, R.drawable.line)
+    updateActionBarTitle(currentSelectedOption.title.toString())
+    currentSelectedOption.isChecked = true
     return true
   }
 
-  private fun getActionBarTitle (primitive: CustomDrawingView.PrimitivesSelection): String {
-    return when (primitive) {
-      CustomDrawingView.PrimitivesSelection.ELLIPSE -> "Еліпс"
-      CustomDrawingView.PrimitivesSelection.LINE -> "Лінія"
-      CustomDrawingView.PrimitivesSelection.DOT -> "Крапка"
-      CustomDrawingView.PrimitivesSelection.RECTANGLE -> "Прямокутник"
-    }
-  }
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    setIconInactive(currentSelectedOption)
+    currentSelectedOption = mainMenu.findItem(item.itemId)
+    val optionTitle = currentSelectedOption.title.toString()
 
-  override fun onOptionsItemSelected (item: MenuItem): Boolean {
-    val selectedPrimitive = menuItemMap[item.itemId]
-    if (selectedPrimitive != null) setCurrentPrimitive(selectedPrimitive)
+    val itemToCheck = when (item.itemId) {
+      R.id.ellipseIcon, R.id.ellipseSelect -> {
+        CustomDrawingView.PrimitivesSelection.ELLIPSE to R.drawable.ellipse
+      }
+      R.id.lineIcon, R.id.lineSelect -> {
+        CustomDrawingView.PrimitivesSelection.LINE to R.drawable.line
+      }
+      R.id.dotIcon, R.id.dotSelect -> {
+        CustomDrawingView.PrimitivesSelection.DOT to R.drawable.dot
+      }
+      R.id.rectangleIcon, R.id.rectangleSelect -> {
+        CustomDrawingView.PrimitivesSelection.RECTANGLE to R.drawable.rectangle
+      }
+      else -> null to 0
+    }
+
+    itemToCheck.let { (primitive, icon) ->
+      item.isChecked = true
+      mainMenu.findItem(R.id.ellipseSelect).isChecked = false
+      mainMenu.findItem(R.id.lineSelect).isChecked = false
+      mainMenu.findItem(R.id.rectangleSelect).isChecked = false
+      mainMenu.findItem(R.id.dotSelect).isChecked = false
+      primitive?.let { setCurrentOption(it, optionTitle, icon) }
+    }
+
+    updateActionBarTitle(optionTitle)
+    currentSelectedOption.isChecked = true
 
     return super.onOptionsItemSelected(item)
   }
 
-  private fun showSystemBars () {
+  private fun showSystemUI() {
     WindowCompat.setDecorFitsSystemWindows(window, true)
-    WindowInsetsControllerCompat(window, drawingView).show(WindowInsetsCompat.Type.systemBars())
+    WindowInsetsControllerCompat(window, mainCanvas).show(WindowInsetsCompat.Type.systemBars())
   }
 
-  private fun updateMenuCheckState (selectedOption: CustomDrawingView.PrimitivesSelection) {
-    menuItemMap.values.forEach { mainMenu.findItem(getMenuItemId(it))?.isChecked = false }
-    mainMenu.findItem(getMenuItemId(selectedOption))?.isChecked = true
+  private fun setOptionIcon(item: MenuItem, iconResourceId: Int) {
+    item.icon = ContextCompat.getDrawable(this, iconResourceId)
   }
 
-  private fun getMenuItemId (option: CustomDrawingView.PrimitivesSelection): Int {
-    return when (option) {
-      CustomDrawingView.PrimitivesSelection.ELLIPSE -> R.id.ellipseSelect
-      CustomDrawingView.PrimitivesSelection.LINE -> R.id.lineSelect
-      CustomDrawingView.PrimitivesSelection.DOT -> R.id.dotSelect
-      CustomDrawingView.PrimitivesSelection.RECTANGLE -> R.id.rectSelect
+  private fun setCurrentOption(option: CustomDrawingView.PrimitivesSelection, title: String, iconResourceId: Int) {
+    mainCanvas.setShapePrimitiveEditor(option)
+    currentSelectedOption.icon = ContextCompat.getDrawable(this, iconResourceId)
+    currentSelectedOption.title = title
+  }
+
+  private fun setIconInactive(item: MenuItem) {
+    when (item.itemId) {
+      R.id.ellipseIcon -> setOptionIcon(item, R.drawable.ellipse_disabled)
+      R.id.lineIcon -> setOptionIcon(item, R.drawable.line_disabled)
+      R.id.dotIcon -> setOptionIcon(item, R.drawable.dot_disabled)
+      R.id.rectangleIcon -> setOptionIcon(item, R.drawable.rectangle_disabled)
     }
+  }
+  private fun updateActionBarTitle(title: String) {
+    supportActionBar?.title = title
   }
 }
