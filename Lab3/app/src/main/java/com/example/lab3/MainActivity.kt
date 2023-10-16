@@ -11,15 +11,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 class MainActivity : AppCompatActivity() {
-  private lateinit var mainCanvas: CustomDrawingView
+  private lateinit var drawingView: CustomDrawingView
   private lateinit var currentSelectedOption: MenuItem
   private lateinit var mainMenu: Menu
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    mainCanvas = CustomDrawingView(this)
-    mainCanvas.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.LINE)
-    setContentView(mainCanvas)
+    drawingView = CustomDrawingView(this)
+    drawingView.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.LINE)
+    setContentView(drawingView)
     showSystemUI()
   }
 
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun showSystemUI() {
     WindowCompat.setDecorFitsSystemWindows(window, true)
-    WindowInsetsControllerCompat(window, mainCanvas).show(WindowInsetsCompat.Type.systemBars())
+    WindowInsetsControllerCompat(window, drawingView).show(WindowInsetsCompat.Type.systemBars())
   }
 
   private fun setOptionIcon(item: MenuItem, iconResourceId: Int) {
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun setCurrentOption(option: CustomDrawingView.PrimitivesSelection, title: String, iconResourceId: Int) {
-    mainCanvas.setShapePrimitiveEditor(option)
+    drawingView.setShapePrimitiveEditor(option)
     currentSelectedOption.icon = ContextCompat.getDrawable(this, iconResourceId)
     currentSelectedOption.title = title
   }

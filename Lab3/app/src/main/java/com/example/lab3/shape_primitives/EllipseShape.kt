@@ -2,11 +2,10 @@ package com.example.lab3.shape_primitives
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.DashPathEffect
 import android.graphics.Paint
 import com.example.lab3.Shape
 
-class EllipseShape (private val paintSettings: Paint) : Shape(paintSettings) {
+class EllipseShape (paintSettings: Paint) : Shape(paintSettings) {
   private val paint = Paint()
 
   override fun draw (canvas: Canvas) {
@@ -19,9 +18,6 @@ class EllipseShape (private val paintSettings: Paint) : Shape(paintSettings) {
         endYCoordinate,
         paint,
       )
-      resetDashedOutline()
-    } else {
-      configureDashedOutline()
     }
 
     configureDrawing()
@@ -43,7 +39,7 @@ class EllipseShape (private val paintSettings: Paint) : Shape(paintSettings) {
   }
 
   private fun configureFillStyle () {
-    applyDrawingStyle(Color.rgb(255, 165, 0), Paint.Style.FILL)
+    applyDrawingStyle(Color.rgb(128, 128, 128), Paint.Style.FILL)
   }
 
   private fun applyDrawingStyle (color: Int, style: Paint.Style) {
@@ -51,16 +47,5 @@ class EllipseShape (private val paintSettings: Paint) : Shape(paintSettings) {
       this.color = color
       this.style = style
     }
-  }
-
-  private fun configureDashedOutline() {
-    val dashLength = 10f
-    val dashGap = 10f
-    val dashEffect = DashPathEffect(floatArrayOf(dashLength, dashGap), 0f)
-    paint.pathEffect = dashEffect
-  }
-
-  private fun resetDashedOutline() {
-    paint.pathEffect = null
   }
 }
