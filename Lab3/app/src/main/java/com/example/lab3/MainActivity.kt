@@ -10,12 +10,12 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity () {
   private lateinit var drawingView: CustomDrawingView
   private lateinit var currentSelectedOption: MenuItem
   private lateinit var mainMenu: Menu
 
-  override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     drawingView = CustomDrawingView(this)
     drawingView.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.LINE)
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     showSystemUI()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+  override fun onCreateOptionsMenu (menu: Menu?): Boolean {
     val mainMenuInflater: MenuInflater = menuInflater
     mainMenuInflater.inflate(R.menu.main_menu, menu)
     mainMenu = menu!!
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     return true
   }
 
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    setIconInactive(currentSelectedOption)
+  override fun onOptionsItemSelected (item: MenuItem): Boolean {
+    defineDisabledIcon(currentSelectedOption)
     currentSelectedOption = mainMenu.findItem(item.itemId)
     val optionTitle = currentSelectedOption.title.toString()
 
@@ -64,28 +64,28 @@ class MainActivity : AppCompatActivity() {
       primitive?.let { setCurrentOption(it, optionTitle, icon) }
     }
 
-    updateActionBarTitle(optionTitle)
+    updateActionBarTitle (optionTitle)
     currentSelectedOption.isChecked = true
 
     return super.onOptionsItemSelected(item)
   }
 
-  private fun showSystemUI() {
+  private fun showSystemUI () {
     WindowCompat.setDecorFitsSystemWindows(window, true)
     WindowInsetsControllerCompat(window, drawingView).show(WindowInsetsCompat.Type.systemBars())
   }
 
-  private fun setOptionIcon(item: MenuItem, iconResourceId: Int) {
+  private fun setOptionIcon (item: MenuItem, iconResourceId: Int) {
     item.icon = ContextCompat.getDrawable(this, iconResourceId)
   }
 
-  private fun setCurrentOption(option: CustomDrawingView.PrimitivesSelection, title: String, iconResourceId: Int) {
+  private fun setCurrentOption (option: CustomDrawingView.PrimitivesSelection, title: String, iconResourceId: Int) {
     drawingView.setShapePrimitiveEditor(option)
     currentSelectedOption.icon = ContextCompat.getDrawable(this, iconResourceId)
     currentSelectedOption.title = title
   }
 
-  private fun setIconInactive(item: MenuItem) {
+  private fun defineDisabledIcon (item: MenuItem) {
     when (item.itemId) {
       R.id.ellipseIcon -> setOptionIcon(item, R.drawable.ellipse_disabled)
       R.id.lineIcon -> setOptionIcon(item, R.drawable.line_disabled)
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
       R.id.rectangleIcon -> setOptionIcon(item, R.drawable.rectangle_disabled)
     }
   }
-  private fun updateActionBarTitle(title: String) {
+  private fun updateActionBarTitle (title: String) {
     supportActionBar?.title = title
   }
 }

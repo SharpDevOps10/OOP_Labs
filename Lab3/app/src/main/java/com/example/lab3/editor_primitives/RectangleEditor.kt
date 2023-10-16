@@ -9,19 +9,19 @@ class RectangleEditor (private val paintSettings: Paint, private val shapesList:
   private var rectShape: RectangleShape? = null
 
 
-  override fun onTouchDown(x: Float, y: Float) {
+  override fun onTouchDown (x: Float, y: Float) {
     rectShape = RectangleShape(paintSettings)
     rectShape!!.defineStartCoordinates(x, y)
   }
 
-  override fun onTouchUp() {
+  override fun onTouchUp () {
     rectShape?.let {
       addShapeToEditor(it, shapesList)
     }
     rectShape = null
   }
 
-  override fun handleMouseMovement(x: Float, y: Float) {
+  override fun handleMouseMovement (x: Float, y: Float) {
     rectShape?.let {
       shapesList.remove(it)
 

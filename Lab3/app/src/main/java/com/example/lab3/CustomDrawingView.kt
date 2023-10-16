@@ -85,6 +85,6 @@ class CustomDrawingView (context: Context) : View(context) {
   override fun onSizeChanged (newWidth: Int, newHeight: Int, oldWidth: Int, oldHeight: Int) {
     super.onSizeChanged(newWidth, newHeight, oldWidth, oldHeight)
     drawingCanvas = Canvas()
-    drawingCanvas!!.drawColor(BACKGROUND_COLOUR)
+    drawingCanvas.drawColor(BACKGROUND_COLOUR)
   }
 }

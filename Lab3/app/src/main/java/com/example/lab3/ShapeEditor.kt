@@ -12,15 +12,9 @@ abstract class ShapeEditor (paintSettings: Paint, shapesList: MutableList<Shape>
     }
     shapes.add(shape)
   }
-  override fun onTouchUp () {
+  override fun onTouchUp () {}
 
-  }
+  override fun onTouchDown (x: Float, y: Float) {}
 
-  override fun onTouchDown (x: Float, y: Float) {
-
-  }
-
-  override fun handleMouseMovement (x: Float, y: Float) {
-
-  }
+  override fun handleMouseMovement (x: Float, y: Float) {}
 }
