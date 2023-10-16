@@ -5,21 +5,25 @@
         android:title="Крапка"
         android:id="@+id/dotIcon"
         app:showAsAction="always"
+        app:tooltipText="Намалювати крапку"
         android:icon="@drawable/dot_disabled"/>
     <item
         android:title="Лінія"
         android:id="@+id/lineIcon"
         app:showAsAction="always"
+        app:tooltipText="Намалювати лінію"
         android:icon="@drawable/line_disabled"/>
     <item
         android:title="Прямокутник"
         android:id="@+id/rectangleIcon"
         app:showAsAction="always"
+        app:tooltipText="Намалювати прямокутник"
         android:icon="@drawable/rectangle_disabled"/>
     <item
         android:title="Еліпс"
         android:id="@+id/ellipseIcon"
         app:showAsAction="always"
+        app:tooltipText="Намалювати еліпс"
         android:icon="@drawable/ellipse_disabled"/>
     <item
         android:title="Крапка"

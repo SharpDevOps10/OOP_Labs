@@ -15,7 +15,6 @@ class LineEditor (private val paintSettings: Paint, private val shapesList: Muta
 
   override fun onTouchUp() {
     currentLine?.let {
-      it.toggleDashed()
       addShapeToEditor(it, shapesList)
     }
     currentLine = null
