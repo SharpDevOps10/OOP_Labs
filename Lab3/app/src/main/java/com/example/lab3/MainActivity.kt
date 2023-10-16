@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity () {
   override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     drawingView = CustomDrawingView(this)
-    drawingView.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.LINE)
+    drawingView.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.DOT)
     setContentView(drawingView)
     showSystemUI()
   }
@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity () {
     val mainMenuInflater: MenuInflater = menuInflater
     mainMenuInflater.inflate(R.menu.main_menu, menu)
     mainMenu = menu!!
-    currentSelectedOption = mainMenu.findItem(R.id.lineIcon)
-    setOptionIcon(currentSelectedOption, R.drawable.line)
+    currentSelectedOption = mainMenu.findItem(R.id.dotIcon)
+    setOptionIcon(currentSelectedOption, R.drawable.dot)
     updateActionBarTitle(currentSelectedOption.title.toString())
     currentSelectedOption.isChecked = true
     return true
