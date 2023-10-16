@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import com.example.lab3.Shape
 
-class LineShape(paintSettings: Paint) : Shape(paintSettings) {
+class LineShape (paintSettings: Paint) : Shape(paintSettings) {
   private val paint = Paint()
 
   override fun draw (canvas: Canvas) {
