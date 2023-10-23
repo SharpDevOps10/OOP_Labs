@@ -9,21 +9,26 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.lab3.editor_primitives.DotEditor
+import com.example.lab3.editor_primitives.EllipseEditor
+import com.example.lab3.editor_primitives.LineEditor
+import com.example.lab3.editor_primitives.RectangleEditor
 
-class MainActivity : AppCompatActivity () {
+class MainActivity : AppCompatActivity() {
   private lateinit var drawingView: CustomDrawingView
   private lateinit var currentSelectedOption: MenuItem
   private lateinit var mainMenu: Menu
 
-  override fun onCreate (savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     drawingView = CustomDrawingView(this)
-    drawingView.setShapePrimitiveEditor(CustomDrawingView.PrimitivesSelection.DOT)
+    val initialEditor = DotEditor(drawingView.drawingSetting, drawingView.shapeList)
+    drawingView.setShapePrimitiveEditor(initialEditor)
     setContentView(drawingView)
     showSystemBars()
   }
 
-  override fun onCreateOptionsMenu (menu: Menu?): Boolean {
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     val mainMenuInflater: MenuInflater = menuInflater
     mainMenuInflater.inflate(R.menu.main_menu, menu)
     mainMenu = menu!!
@@ -34,34 +39,47 @@ class MainActivity : AppCompatActivity () {
     return true
   }
 
-  override fun onOptionsItemSelected (item: MenuItem): Boolean {
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
     defineDisabledIcon(currentSelectedOption)
     currentSelectedOption = mainMenu.findItem(item.itemId)
     val optionTitle = currentSelectedOption.title.toString()
 
-    val itemToCheck = when (item.itemId) {
-      R.id.ellipseIcon, R.id.ellipseSelect -> {
-        CustomDrawingView.PrimitivesSelection.ELLIPSE to R.drawable.ellipse
-      }
-      R.id.lineIcon, R.id.lineSelect -> {
-        CustomDrawingView.PrimitivesSelection.LINE to R.drawable.line
-      }
-      R.id.dotIcon, R.id.dotSelect -> {
-        CustomDrawingView.PrimitivesSelection.DOT to R.drawable.dot
-      }
-      R.id.rectangleIcon, R.id.rectangleSelect -> {
-        CustomDrawingView.PrimitivesSelection.RECTANGLE to R.drawable.rectangle
-      }
-      else -> null to 0
+    val primitiveEditor: ShapeEditor? = when (item.itemId) {
+      R.id.ellipseIcon, R.id.ellipseSelect -> EllipseEditor(
+        drawingView.drawingSetting,
+        drawingView.shapeList
+      )
+
+      R.id.lineIcon, R.id.lineSelect -> LineEditor(
+        drawingView.drawingSetting,
+        drawingView.shapeList
+      )
+
+      R.id.dotIcon, R.id.dotSelect -> DotEditor(drawingView.drawingSetting, drawingView.shapeList)
+      R.id.rectangleIcon, R.id.rectangleSelect -> RectangleEditor(
+        drawingView.drawingSetting,
+        drawingView.shapeList
+      )
+
+      else -> null
     }
 
-    itemToCheck.let { (primitive, icon) ->
+    primitiveEditor?.let { editor ->
       item.isChecked = true
       mainMenu.findItem(R.id.ellipseSelect).isChecked = false
       mainMenu.findItem(R.id.lineSelect).isChecked = false
       mainMenu.findItem(R.id.rectangleSelect).isChecked = false
       mainMenu.findItem(R.id.dotSelect).isChecked = false
-      primitive?.let { setCurrentPrimitive(it, optionTitle, icon) }
+
+      val iconResourceId = when (editor) {
+        is EllipseEditor -> R.drawable.ellipse
+        is LineEditor -> R.drawable.line
+        is DotEditor -> R.drawable.dot
+        is RectangleEditor -> R.drawable.rectangle
+        else -> 0
+      }
+
+      setCurrentPrimitive(editor, optionTitle, iconResourceId)
     }
 
     updateActionBarTitle(optionTitle)
@@ -70,22 +88,23 @@ class MainActivity : AppCompatActivity () {
     return super.onOptionsItemSelected(item)
   }
 
-  private fun showSystemBars () {
+
+  private fun showSystemBars() {
     WindowCompat.setDecorFitsSystemWindows(window, true)
     WindowInsetsControllerCompat(window, drawingView).show(WindowInsetsCompat.Type.systemBars())
   }
 
-  private fun setPrimitiveIcon (item: MenuItem, iconResourceId: Int) {
+  private fun setPrimitiveIcon(item: MenuItem, iconResourceId: Int) {
     item.icon = ContextCompat.getDrawable(this, iconResourceId)
   }
 
-  private fun setCurrentPrimitive (primitive: CustomDrawingView.PrimitivesSelection, title: String, iconResourceId: Int) {
+  private fun setCurrentPrimitive(primitive: ShapeEditor, title: String, iconResourceId: Int) {
     drawingView.setShapePrimitiveEditor(primitive)
     currentSelectedOption.icon = ContextCompat.getDrawable(this, iconResourceId)
     currentSelectedOption.title = title
   }
 
-  private fun defineDisabledIcon (item: MenuItem) {
+  private fun defineDisabledIcon(item: MenuItem) {
     when (item.itemId) {
       R.id.ellipseIcon -> setPrimitiveIcon(item, R.drawable.ellipse_disabled)
       R.id.lineIcon -> setPrimitiveIcon(item, R.drawable.line_disabled)
@@ -93,7 +112,8 @@ class MainActivity : AppCompatActivity () {
       R.id.rectangleIcon -> setPrimitiveIcon(item, R.drawable.rectangle_disabled)
     }
   }
-  private fun updateActionBarTitle (title: String) {
+
+  private fun updateActionBarTitle(title: String) {
     supportActionBar?.title = title
   }
 }
