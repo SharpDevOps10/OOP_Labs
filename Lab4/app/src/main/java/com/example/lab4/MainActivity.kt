@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.lab4.shape_primitives.CubeShape
 import com.example.lab4.shape_primitives.DotShape
 import com.example.lab4.shape_primitives.EllipseShape
 import com.example.lab4.shape_primitives.LineShape
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
       }
       R.id.cubeIcon, R.id.cubeSelect -> {
         currentSelectedOption = mainMenu.findItem(R.id.cubeIcon)
-        //drawingView.setShapePrimitiveEditor(CubeShape(drawingView.drawingSetting))
+        drawingView.setShapePrimitiveEditor(CubeShape(drawingView.drawingSetting))
         currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.cube_casino)
       }
       R.id.lineswithcirclesIcon, R.id.lineswithcirclesSelect -> {
