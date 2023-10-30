@@ -13,6 +13,7 @@ import com.example.lab4.shape_primitives.CubeShape
 import com.example.lab4.shape_primitives.DotShape
 import com.example.lab4.shape_primitives.EllipseShape
 import com.example.lab4.shape_primitives.LineShape
+import com.example.lab4.shape_primitives.LineWithCirclesShape
 import com.example.lab4.shape_primitives.RectangleShape
 
 class MainActivity : AppCompatActivity() {
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
       }
       R.id.lineswithcirclesIcon, R.id.lineswithcirclesSelect -> {
         currentSelectedOption = mainMenu.findItem(R.id.lineswithcirclesIcon)
-        //drawingView.setShapePrimitiveEditor(LineWithCirclesShape(drawingView.drawingSetting))
+        drawingView.setShapePrimitiveEditor(LineWithCirclesShape(drawingView.drawingSetting))
         currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.linewithcircles)
       }
     }
