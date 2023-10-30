@@ -6,17 +6,16 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.View
-import com.example.lab4.editor_primitives.DotEditor
 
 class CustomDrawingView(context: Context) : View(context) {
   companion object {
     private const val BACKGROUND_COLOUR = Color.WHITE
     private const val DRAWING_COLOR = Color.BLACK
-    private const val STROKE_WIDTH = 20f
+    private const val STROKE_WIDTH = 15f
   }
 
   private var drawingCanvas = Canvas()
-  val shapeList = mutableListOf<Shape>()
+  private val shapeList = mutableListOf<Shape>()
   private var currentX = 0f
   private var currentY = 0f
 
@@ -29,7 +28,7 @@ class CustomDrawingView(context: Context) : View(context) {
     isAntiAlias = true
   }
 
-  private var actualShape: ShapeEditor = DotEditor(drawingSetting, shapeList)
+  private var actualShapeEditor: MyEditor = MyEditor(drawingSetting, shapeList)
 
 
   override fun onDraw(canvas: Canvas?) {
@@ -37,23 +36,23 @@ class CustomDrawingView(context: Context) : View(context) {
     shapeList.forEach { it.draw(canvas!!) }
   }
 
-  fun setShapePrimitiveEditor(primitiveEditor: ShapeEditor) {
-    actualShape = primitiveEditor
+  fun setShapePrimitiveEditor(shape: Shape) {
+    actualShapeEditor.defineInitialShape(shape)
   }
 
   private fun handleTouchUp() {
     invalidate()
-    actualShape.onTouchUp()
+    actualShapeEditor.onTouchUp()
   }
 
   private fun handleTouchMove() {
     invalidate()
-    actualShape.handleMouseMovement(currentX, currentY)
+    actualShapeEditor.handleMouseMovement(currentX, currentY)
   }
 
   private fun handleTouchStart() {
     invalidate()
-    actualShape.onTouchDown(currentX, currentY)
+    actualShapeEditor.onTouchDown(currentX, currentY)
   }
 
   override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -73,5 +72,4 @@ class CustomDrawingView(context: Context) : View(context) {
     drawingCanvas = Canvas()
     drawingCanvas.drawColor(BACKGROUND_COLOUR)
   }
-
 }

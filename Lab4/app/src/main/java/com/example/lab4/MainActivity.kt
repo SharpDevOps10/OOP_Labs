@@ -9,11 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.lab4.editor_primitives.DotEditor
-import com.example.lab4.editor_primitives.EllipseEditor
-import com.example.lab4.editor_primitives.LineEditor
-import com.example.lab4.editor_primitives.RectangleEditor
-
+import com.example.lab4.shape_primitives.DotShape
+import com.example.lab4.shape_primitives.EllipseShape
+import com.example.lab4.shape_primitives.LineShape
+import com.example.lab4.shape_primitives.RectangleShape
 
 class MainActivity : AppCompatActivity() {
   private lateinit var drawingView: CustomDrawingView
@@ -22,9 +21,8 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    drawingView = CustomDrawingView(this)
-    val initialEditor = DotEditor(drawingView.drawingSetting, drawingView.shapeList)
-    drawingView.setShapePrimitiveEditor(initialEditor)
+    drawingView = com.example.lab4.CustomDrawingView(this)
+    drawingView.setShapePrimitiveEditor(DotShape(drawingView.drawingSetting))
     setContentView(drawingView)
     showSystemBars()
   }
@@ -42,50 +40,39 @@ class MainActivity : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     defineDisabledIcon(currentSelectedOption)
-    currentSelectedOption = mainMenu.findItem(item.itemId)
-    val optionTitle = currentSelectedOption.title.toString()
-
-    val primitiveEditor: ShapeEditor? = when (item.itemId) {
-      R.id.ellipseIcon, R.id.ellipseSelect -> EllipseEditor(
-        drawingView.drawingSetting,
-        drawingView.shapeList
-      )
-
-      R.id.lineIcon, R.id.lineSelect -> LineEditor(
-        drawingView.drawingSetting,
-        drawingView.shapeList
-      )
-
-      R.id.dotIcon, R.id.dotSelect -> DotEditor(drawingView.drawingSetting, drawingView.shapeList)
-      R.id.rectangleIcon, R.id.rectangleSelect -> RectangleEditor(
-        drawingView.drawingSetting,
-        drawingView.shapeList
-      )
-
-      else -> null
-    }
-
-    primitiveEditor?.let { editor ->
-      item.isChecked = true
-      mainMenu.findItem(R.id.ellipseSelect).isChecked = false
-      mainMenu.findItem(R.id.lineSelect).isChecked = false
-      mainMenu.findItem(R.id.rectangleSelect).isChecked = false
-      mainMenu.findItem(R.id.dotSelect).isChecked = false
-
-      val iconResourceId = when (editor) {
-        is EllipseEditor -> R.drawable.ellipse
-        is LineEditor -> R.drawable.line
-        is DotEditor -> R.drawable.dot
-        is RectangleEditor -> R.drawable.rectangle
-        else -> 0
+    when (item.itemId) {
+      R.id.ellipseIcon, R.id.ellipseSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.ellipseIcon)
+        drawingView.setShapePrimitiveEditor(EllipseShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.ellipse)
       }
-
-      setCurrentPrimitive(editor, optionTitle, iconResourceId)
+      R.id.lineIcon, R.id.lineSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.lineIcon)
+        drawingView.setShapePrimitiveEditor(LineShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.line)
+      }
+      R.id.dotIcon, R.id.dotSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.dotIcon)
+        drawingView.setShapePrimitiveEditor(DotShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.dot)
+      }
+      R.id.rectangleIcon, R.id.rectangleSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.rectangleIcon)
+        drawingView.setShapePrimitiveEditor(RectangleShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.rectangle)
+      }
+      R.id.cubeIcon, R.id.cubeSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.cubeIcon)
+        //drawingView.setShapePrimitiveEditor(CubeShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.cube_casino)
+      }
+      R.id.lineswithcirclesIcon, R.id.lineswithcirclesSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.lineswithcirclesIcon)
+        //drawingView.setShapePrimitiveEditor(LineWithCirclesShape(drawingView.drawingSetting))
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.linewithcircles)
+      }
     }
-
-    updateActionBarTitle(optionTitle)
-    currentSelectedOption.isChecked = true
-
+    updateActionBarTitle(currentSelectedOption.title.toString())
     return super.onOptionsItemSelected(item)
   }
 
@@ -99,18 +86,14 @@ class MainActivity : AppCompatActivity() {
     item.icon = ContextCompat.getDrawable(this, iconResourceId)
   }
 
-  private fun setCurrentPrimitive(primitive: ShapeEditor, title: String, iconResourceId: Int) {
-    drawingView.setShapePrimitiveEditor(primitive)
-    currentSelectedOption.icon = ContextCompat.getDrawable(this, iconResourceId)
-    currentSelectedOption.title = title
-  }
-
   private fun defineDisabledIcon(item: MenuItem) {
     when (item.itemId) {
       R.id.ellipseIcon -> setPrimitiveIcon(item, R.drawable.ellipse_disabled)
       R.id.lineIcon -> setPrimitiveIcon(item, R.drawable.line_disabled)
       R.id.dotIcon -> setPrimitiveIcon(item, R.drawable.dot_disabled)
       R.id.rectangleIcon -> setPrimitiveIcon(item, R.drawable.rectangle_disabled)
+      R.id.cubeIcon -> setPrimitiveIcon(item, R.drawable.cube_casino_disabled)
+      R.id.lineswithcirclesIcon -> setPrimitiveIcon(item, R.drawable.linewithcircle_disabled)
     }
   }
 

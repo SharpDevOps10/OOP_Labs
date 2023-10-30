@@ -26,6 +26,18 @@
         app:tooltipText="Намалювати еліпс"
         android:icon="@drawable/ellipse_disabled"/>
     <item
+        android:title="Куб"
+        android:id="@+id/cubeIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати куб"
+        android:icon="@drawable/cube_casino_disabled"/>
+    <item
+        android:title="Лінія з кругами"
+        android:id="@+id/lineswithcirclesIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати лінію з кругами"
+        android:icon="@drawable/linewithcircle_disabled"/>
+    <item
         android:title="Крапка"
         android:checkable="true"
         android:id="@+id/dotSelect"/>
@@ -41,4 +53,12 @@
         android:title="Еліпс"
         android:checkable="true"
         android:id="@+id/ellipseSelect"/>
+    <item
+        android:title="Куб"
+        android:checkable="true"
+        android:id="@+id/cubeSelect"/>
+    <item
+        android:title="Лінія з кругами"
+        android:checkable="true"
+        android:id="@+id/lineswithcirclesSelect"/>
 </menu>
