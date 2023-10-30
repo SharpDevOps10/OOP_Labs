@@ -1,9 +1,12 @@
 package com.example.lab4
 
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.graphics.PathEffect
 
-abstract class Shape (paintSettings : Paint) {
+open class Shape (protected var paintSettings : Paint) {
   protected var isEraserMode: Boolean = true
 
   var startXCoordinate: Float = 0f
@@ -26,8 +29,19 @@ abstract class Shape (paintSettings : Paint) {
     endYCoordinate  = y
   }
 
-  abstract fun draw (canvas: Canvas)
+  open fun draw (canvas: Canvas) {}
 
-  abstract fun configureDrawing ()
+  open fun configureDrawing () {
+    paintSettings.apply {
+      pathEffect = PathEffect()
+    }
+  }
 
+  fun defineEraserDrawingStyle () {
+    paintSettings.apply {
+      color = Color.BLACK
+      style = Paint.Style.STROKE
+      pathEffect = DashPathEffect(floatArrayOf(45f, 35f), 0f)
+    }
+  }
 }
