@@ -6,21 +6,20 @@ import android.graphics.Paint
 import android.graphics.RectF
 import com.example.lab4.Shape
 
-class RectangleShape (initialPaintSettings: Paint) : Shape(initialPaintSettings) {
-  private val paint = Paint()
-
+open class RectangleShape (paintSettings: Paint) : Shape(paintSettings) {
   override fun draw (canvas: Canvas) {
     configureDrawing()
+    if (isEraserMode) defineEraserDrawingStyle()
     val rect = RectF(startXCoordinate, startYCoordinate, endXCoordinate, endYCoordinate)
 
-    canvas.drawRect(rect, paint)
+    canvas.drawRect(rect, paintSettings)
   }
 
   override fun configureDrawing () {
-    paint.apply {
+    super.configureDrawing()
+    paintSettings.apply {
       color = Color.BLACK
       style = Paint.Style.STROKE
-      strokeWidth = 20f
     }
   }
 }

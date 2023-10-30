@@ -3,38 +3,35 @@ package com.example.lab4.shape_primitives
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import com.example.lab4.Shape
 
 class EllipseShape (paintSettings: Paint) : Shape(paintSettings) {
-  private val paint = Paint()
+  override fun draw(canvas: Canvas) {
+    val left = 2 * startXCoordinate - endXCoordinate
+    val top = 2 * startYCoordinate - endYCoordinate
+    val right = endXCoordinate
+    val bottom = endYCoordinate
 
-  override fun draw (canvas: Canvas) {
+    val ovalRect = RectF(left, top, right, bottom)
+
     if (!isEraserMode) {
       configureFillStyle()
-      canvas.drawOval(
-        2*startXCoordinate - endXCoordinate,
-        2*startYCoordinate - endYCoordinate,
-        endXCoordinate,
-        endYCoordinate,
-        paint,
-      )
+      canvas.drawOval(ovalRect, paintSettings)
+      configureDrawing()
+      canvas.drawOval(ovalRect, paintSettings)
+    } else {
+      defineEraserDrawingStyle()
+      canvas.drawOval(ovalRect, paintSettings)
     }
-
-    configureDrawing()
-    canvas.drawOval(
-      2*startXCoordinate - endXCoordinate,
-      2*startYCoordinate - endYCoordinate,
-      endXCoordinate,
-      endYCoordinate,
-      paint,
-    )
   }
 
   override fun configureDrawing () {
-    paint.apply {
+    super.configureDrawing()
+    paintSettings.apply {
       this.color = Color.BLACK
       this.style = Paint.Style.STROKE
-      this.strokeWidth = 20f
+      this.strokeWidth = 15f
     }
   }
 
@@ -43,7 +40,7 @@ class EllipseShape (paintSettings: Paint) : Shape(paintSettings) {
   }
 
   private fun applyDrawingStyle (color: Int, style: Paint.Style) {
-    paint.apply {
+    paintSettings.apply {
       this.color = color
       this.style = style
     }
