@@ -28,7 +28,7 @@ class CustomDrawingView(context: Context) : View(context) {
     isAntiAlias = true
   }
 
-  private var actualShapeEditor: MyEditor = MyEditor(drawingSetting, shapeList)
+  private var actualShapeEditor: MyEditor = MyEditor.getInstance(drawingSetting, shapeList)
 
 
   override fun onDraw(canvas: Canvas) {
