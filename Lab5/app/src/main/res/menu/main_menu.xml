@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Крапка"
+        android:id="@+id/dotIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати крапку"
+        android:icon="@drawable/dot_disabled"/>
+    <item
+        android:title="Лінія"
+        android:id="@+id/lineIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати лінію"
+        android:icon="@drawable/line_disabled"/>
+    <item
+        android:title="Прямокутник"
+        android:id="@+id/rectangleIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати прямокутник"
+        android:icon="@drawable/rectangle_disabled"/>
+    <item
+        android:title="Еліпс"
+        android:id="@+id/ellipseIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати еліпс"
+        android:icon="@drawable/ellipse_disabled"/>
+    <item
+        android:title="Куб"
+        android:id="@+id/cubeIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати куб"
+        android:icon="@drawable/cube_casino_disabled"/>
+    <item
+        android:title="Лінія з кругами"
+        android:id="@+id/lineswithcirclesIcon"
+        app:showAsAction="always"
+        app:tooltipText="Намалювати лінію з кругами"
+        android:icon="@drawable/linewithcircle_disabled"/>
+    <item
+        android:title="Таблиця з фігурами"
+        android:id="@+id/tableIcon"
+        app:showAsAction="always"
+        android:icon="@drawable/table"/>
+    <item
+        android:title="Крапка"
+        android:checkable="true"
+        android:id="@+id/dotSelect"/>
+    <item
+        android:title="Лінія"
+        android:checkable="true"
+        android:id="@+id/lineSelect"/>
+    <item
+        android:title="Прямокутник"
+        android:checkable="true"
+        android:id="@+id/rectangleSelect"/>
+    <item
+        android:title="Еліпс"
+        android:checkable="true"
+        android:id="@+id/ellipseSelect"/>
+    <item
+        android:title="Куб"
+        android:checkable="true"
+        android:id="@+id/cubeSelect"/>
+    <item
+        android:title="Лінія з кругами"
+        android:checkable="true"
+        android:id="@+id/lineswithcirclesSelect"/>
+    <item
+        android:title="Таблиця з фігурами"
+        android:id="@+id/tableSelect"/>
+</menu>
