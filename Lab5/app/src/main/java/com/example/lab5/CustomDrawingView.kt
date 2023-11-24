@@ -29,7 +29,7 @@ class CustomDrawingView(context: Context) : View(context) {
   }
 
   private var actualShapeEditor: MyEditor = MyEditor.getInstance(drawingSetting, shapeList)
-
+  private lateinit var table: MyTable
 
   override fun onDraw(canvas: Canvas) {
     super.onDraw(canvas)
@@ -38,6 +38,15 @@ class CustomDrawingView(context: Context) : View(context) {
 
   fun setShapePrimitiveEditor(shape: Shape) {
     actualShapeEditor.defineInitialShape(shape)
+  }
+
+  fun defineTable (table: MyTable) {
+    this.table = table
+    actualShapeEditor.defineTable(table)
+  }
+
+  fun receiveShapes (): MutableList<Shape> {
+    return shapeList
   }
 
   private fun handleTouchUp() {
