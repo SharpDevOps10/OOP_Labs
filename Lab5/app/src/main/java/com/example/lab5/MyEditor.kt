@@ -6,6 +6,8 @@ import android.graphics.Paint
 class MyEditor private constructor (private val painSettings: Paint, private val shapesList: MutableList<Shape>) {
   private var initialShape = Shape(painSettings)
   private val shapesLimit: Int = 123
+  private lateinit var table: MyTable
+
 
   companion object {
     private var instance: MyEditor? = null
@@ -13,6 +15,10 @@ class MyEditor private constructor (private val painSettings: Paint, private val
       if (instance == null) instance = MyEditor(painSettings, shapesList)
       return instance!!
     }
+  }
+
+  fun defineTable (table: MyTable) {
+    this.table = table
   }
 
   fun onTouchDown (x: Float, y: Float) {
@@ -25,6 +31,7 @@ class MyEditor private constructor (private val painSettings: Paint, private val
       if (shapesList.contains(it)) shapesList.remove(it)
       it.defineEraserMode(false)
       addShapeToEditor(it, shapesList)
+      table.insertRow(initialShape.toShapeCoordinate())
     }
   }
 

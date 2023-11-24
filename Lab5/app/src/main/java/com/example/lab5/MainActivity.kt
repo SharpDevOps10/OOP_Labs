@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.FragmentTransaction
 import com.example.lab5.shape_primitives.CubeShape
 import com.example.lab5.shape_primitives.DotShape
 import com.example.lab5.shape_primitives.EllipseShape
@@ -19,14 +22,22 @@ import com.example.lab5.shape_primitives.RectangleShape
 class MainActivity : AppCompatActivity() {
   private lateinit var drawingView: CustomDrawingView
   private lateinit var currentSelectedOption: MenuItem
+  private lateinit var frameLayout: FrameLayout
+  private lateinit var table: MyTable
   private lateinit var mainMenu: Menu
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    drawingView = CustomDrawingView(this)
-    drawingView.setShapePrimitiveEditor(DotShape(drawingView.drawingSetting))
-    setContentView(drawingView)
-    showSystemBars()
+    setContentView(R.layout.activity_main)
+    drawingView = findViewById(R.id.mainCanvas)
+    drawingView.setShapePrimitiveEditor(LineShape(drawingView.drawingSetting))
+
+    frameLayout = findViewById(R.id.tableContainer)
+
+    table = MyTable()
+    val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+    ft.add(R.id.tableContainer, table)
+    ft.commit()
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -72,6 +83,10 @@ class MainActivity : AppCompatActivity() {
         currentSelectedOption = mainMenu.findItem(R.id.lineswithcirclesIcon)
         drawingView.setShapePrimitiveEditor(LineWithCirclesShape(drawingView.drawingSetting))
         currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.linewithcircles)
+      }
+      R.id.tableIcon, R.id.tableSelect -> {
+        if (frameLayout.visibility == View.GONE) frameLayout.visibility = View.VISIBLE
+        else frameLayout.visibility = View.GONE
       }
     }
     updateActionBarTitle(currentSelectedOption.title.toString())
