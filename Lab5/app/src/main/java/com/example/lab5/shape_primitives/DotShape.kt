@@ -9,7 +9,7 @@ class DotShape (paintSettings: Paint) : Shape(paintSettings) {
 
   override fun draw (canvas: Canvas) {
     configureDrawing()
-    paintSettings.strokeWidth = 15f
+    paintSettings.strokeWidth = 10f
     canvas.drawPoint(startXCoordinate, startYCoordinate, paintSettings)
   }
 

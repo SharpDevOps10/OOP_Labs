@@ -31,7 +31,7 @@ class EllipseShape (paintSettings: Paint) : Shape(paintSettings) {
     paintSettings.apply {
       this.color = Color.BLACK
       this.style = Paint.Style.STROKE
-      this.strokeWidth = 15f
+      this.strokeWidth = 10f
     }
   }
 

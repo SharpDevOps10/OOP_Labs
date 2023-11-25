@@ -18,7 +18,7 @@ open class LineShape (paintSettings: Paint) : Shape(paintSettings) {
     paintSettings.apply {
       color = Color.BLACK
       style = Paint.Style.FILL_AND_STROKE
-      strokeWidth = 15f
+      strokeWidth = 10f
     }
   }
 }

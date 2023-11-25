@@ -8,9 +8,6 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.lab5.shape_primitives.CubeShape
 import com.example.lab5.shape_primitives.DotShape
@@ -85,18 +82,14 @@ class MainActivity : AppCompatActivity() {
         currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.linewithcircles)
       }
       R.id.tableIcon, R.id.tableSelect -> {
+        currentSelectedOption = mainMenu.findItem(R.id.tableIcon)
+        currentSelectedOption.icon = ContextCompat.getDrawable(this, R.drawable.table)
         if (frameLayout.visibility == View.GONE) frameLayout.visibility = View.VISIBLE
         else frameLayout.visibility = View.GONE
       }
     }
     updateActionBarTitle(currentSelectedOption.title.toString())
     return super.onOptionsItemSelected(item)
-  }
-
-
-  private fun showSystemBars() {
-    WindowCompat.setDecorFitsSystemWindows(window, true)
-    WindowInsetsControllerCompat(window, drawingView).show(WindowInsetsCompat.Type.systemBars())
   }
 
   private fun setPrimitiveIcon(item: MenuItem, iconResourceId: Int) {
