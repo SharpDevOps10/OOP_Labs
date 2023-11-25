@@ -12,7 +12,7 @@ class CustomDrawingView (context: Context, attributeSet: AttributeSet): View(con
   companion object {
     private const val BACKGROUND_COLOUR = Color.WHITE
     private const val DRAWING_COLOR = Color.BLACK
-    private const val STROKE_WIDTH = 15f
+    private const val STROKE_WIDTH = 10f
   }
 
   private var drawingCanvas = Canvas()
@@ -75,6 +75,37 @@ class CustomDrawingView (context: Context, attributeSet: AttributeSet): View(con
       MotionEvent.ACTION_DOWN -> handleTouchStart()
     }
     return true
+  }
+
+  fun retrieveData (data: List<String>) {
+    shapeList.clear()
+    data.forEach { string ->
+      val fields = string.split("\t")
+      processFields(fields)
+    }
+  }
+
+  private fun processFields (fields: List<String>) {
+    val shape = createShapeFromFields(fields)
+    shape.let {
+      table.insertRow(it.toShapeCoordinate())
+      shapeList.add(it)
+      invalidate()
+    }
+  }
+
+  private fun createShapeFromFields (fields: List<String>): Shape {
+    val shapeType = Class.forName(fields[0])
+    val constructor = shapeType.getConstructor(Paint::class.java)
+    val shape  = constructor.newInstance(drawingSetting) as Shape
+
+    shape.apply {
+      defineStartCoordinates(fields[1].toFloat(), fields[2].toFloat())
+      defineEndCoordinates(fields[3].toFloat(), fields[4].toFloat())
+      defineEraserMode(false)
+    }
+
+    return shape
   }
 
   override fun onSizeChanged(newWidth: Int, newHeight: Int, oldWidth: Int, oldHeight: Int) {

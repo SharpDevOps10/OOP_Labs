@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import java.io.File
+import java.io.FileInputStream
 
 class MyTable : Fragment() {
   private val shapeCoordinates = mutableListOf<ShapeCoordinate>()
   private lateinit var tableLayout: TableLayout
   private lateinit var view: CustomDrawingView
   private lateinit var fragmentView: View
+  private lateinit var saveButton: Button
+  private lateinit var loadButton: Button
 
   override fun onCreateView (
     inflater: LayoutInflater,
@@ -28,6 +33,7 @@ class MyTable : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initializeViews()
+    setupListeners()
   }
 
   fun insertRow (shapeCoordinate: ShapeCoordinate) {
@@ -43,12 +49,40 @@ class MyTable : Fragment() {
     defineLayout(tableLayout)
 
     view.defineTable(this)
+
+    loadButton = fragmentView.findViewById(R.id.loadButton)
+    saveButton = fragmentView.findViewById(R.id.saveButton)
   }
 
   private fun defineLayout (layout: TableLayout) {
     this.tableLayout = layout
     val header = createTableHeaderRow()
     this.tableLayout.addView(header)
+  }
+
+  private fun setupListeners () {
+    loadButton.setOnClickListener { retrieveData() }
+    saveButton.setOnClickListener { saveData()}
+  }
+
+  private fun saveData() {
+    val filePath = context?.filesDir
+    val file = File(filePath, "SHAPES")
+    file.delete()
+    receiveRows().forEach { row ->
+      file.appendText("${row.shapeType.trim()}\t${row.startX.trim()}\t${row.startY.trim()}\t${row.endX.trim()}\t${row.endY}\n")
+    }
+  }
+
+  private fun retrieveData() {
+    emptyRows()
+    defineLayout(tableLayout)
+    val filePath = context?.filesDir
+    val file = File(filePath, "SHAPES")
+    val inputAsString = FileInputStream(file).bufferedReader().use { it.readText() }
+    val splitInput = inputAsString.split("\n")
+    val shapesData = splitInput.filter { splitInput.indexOf(it) != splitInput.lastIndex }
+    view.retrieveData(shapesData)
   }
 
   private fun createTableHeaderRow (): TableRow {
@@ -113,5 +147,14 @@ class MyTable : Fragment() {
 
       view.invalidate()
     }
+  }
+
+  private fun emptyRows () {
+    shapeCoordinates.clear()
+    tableLayout.removeAllViews()
+  }
+
+  private fun receiveRows (): MutableList<ShapeCoordinate> {
+    return shapeCoordinates
   }
 }

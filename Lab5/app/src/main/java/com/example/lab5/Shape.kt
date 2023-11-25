@@ -65,6 +65,4 @@ open class Shape (protected var paintSettings : Paint) {
       alignCoordinates(endYCoordinate),
       this)
   }
-
-
 }
