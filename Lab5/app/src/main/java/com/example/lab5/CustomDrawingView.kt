@@ -4,10 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
-class CustomDrawingView(context: Context) : View(context) {
+class CustomDrawingView (context: Context, attributeSet: AttributeSet): View(context, attributeSet) {
   companion object {
     private const val BACKGROUND_COLOUR = Color.WHITE
     private const val DRAWING_COLOR = Color.BLACK
