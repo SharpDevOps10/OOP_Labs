@@ -8,8 +8,12 @@ import com.example.lab5.Shape
 open class LineShape (paintSettings: Paint) : Shape(paintSettings) {
 
   override fun draw (canvas: Canvas) {
-    if (!isEraserMode) configureDrawing()
-    else defineEraserDrawingStyle()
+    if (!isEraserMode) {
+      configureDrawing()
+      super.draw(canvas)
+    } else {
+      defineEraserDrawingStyle()
+    }
     canvas.drawLine(startXCoordinate, startYCoordinate, endXCoordinate, endYCoordinate, paintSettings)
   }
 

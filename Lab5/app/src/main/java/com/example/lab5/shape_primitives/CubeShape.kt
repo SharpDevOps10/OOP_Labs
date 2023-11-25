@@ -1,6 +1,7 @@
 package com.example.lab5.shape_primitives
 
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import kotlin.math.abs
 
@@ -11,7 +12,7 @@ class CubeShape (paintSettings: Paint): RectangleShape(paintSettings) {
 
     val halfWidth = abs(startXCoordinate - endXCoordinate) / 2
     val heightDifference = abs(startYCoordinate - endYCoordinate)
-
+    if (isHighlightingMode) paintSettings.apply { color = Color.GREEN }
     val topLeftX = 2 * startXCoordinate - endXCoordinate
     val topLeftY = 2 * startYCoordinate - endYCoordinate
 

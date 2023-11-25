@@ -6,11 +6,11 @@ import android.graphics.Paint
 import android.graphics.RectF
 import com.example.lab5.Shape
 
-
 open class RectangleShape (paintSettings: Paint) : Shape(paintSettings) {
   override fun draw (canvas: Canvas) {
     configureDrawing()
     if (isEraserMode) defineEraserDrawingStyle()
+    super.draw(canvas)
     val rect = RectF(startXCoordinate, startYCoordinate, endXCoordinate, endYCoordinate)
 
     canvas.drawRect(rect, paintSettings)
