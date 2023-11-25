@@ -17,6 +17,7 @@ class EllipseShape (paintSettings: Paint) : Shape(paintSettings) {
 
     if (!isEraserMode) {
       configureFillStyle()
+      super.draw(canvas)
       canvas.drawOval(ovalRect, paintSettings)
       configureDrawing()
       canvas.drawOval(ovalRect, paintSettings)

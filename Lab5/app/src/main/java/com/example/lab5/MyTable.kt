@@ -142,9 +142,10 @@ class MyTable : Fragment() {
     shapeRow.setOnClickListener {
       for (i in 0 until shapeRow.childCount) {
         val textView: TextView = shapeRow.getChildAt(i) as TextView
-        textView.setTextColor(Color.BLACK)
+        if (!shapeCoordinate.shapeReference.receiveHighlightingCondition()) textView.setTextColor(Color.GREEN)
+        else textView.setTextColor(Color.BLACK)
       }
-
+      shapeCoordinate.shapeReference.defineHighlightingMode()
       view.invalidate()
     }
   }

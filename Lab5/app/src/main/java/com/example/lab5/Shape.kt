@@ -10,6 +10,7 @@ import java.text.DecimalFormat
 
 open class Shape (protected var paintSettings : Paint) {
   protected var isEraserMode: Boolean = true
+  protected var isHighlightingMode: Boolean = false
 
   var startXCoordinate: Float = 0f
   var startYCoordinate: Float = 0f
@@ -19,6 +20,10 @@ open class Shape (protected var paintSettings : Paint) {
 
   fun defineEraserMode (eraserMode: Boolean) {
     isEraserMode = eraserMode
+  }
+
+  fun defineHighlightingMode () {
+    isHighlightingMode = !isHighlightingMode
   }
 
   fun defineStartCoordinates (x: Float, y: Float) {
@@ -31,7 +36,11 @@ open class Shape (protected var paintSettings : Paint) {
     endYCoordinate  = y
   }
 
-  open fun draw (canvas: Canvas) {}
+  open fun draw (canvas: Canvas) {
+    if (isHighlightingMode) {
+      paintSettings.apply { color = Color.GREEN }
+    }
+  }
 
   open fun configureDrawing () {
     paintSettings.apply {
@@ -52,6 +61,10 @@ open class Shape (protected var paintSettings : Paint) {
       roundingMode = RoundingMode.DOWN
     }
     return decimalFormat.format(coordinate) + "\t".repeat(5)
+  }
+
+  fun receiveHighlightingCondition (): Boolean {
+    return isHighlightingMode
   }
 
   private fun getClassNameString (): String = this::class.java.name + "\t".repeat(5)
