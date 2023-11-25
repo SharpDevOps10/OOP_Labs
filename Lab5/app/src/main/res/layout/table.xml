@@ -39,21 +39,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollView">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"
-                android:id="@+id/saveButton"
-                style="?android:attr/buttonBarButtonStyle" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Load"
-                android:id="@+id/loadButton"
-                style="?android:attr/buttonBarButtonStyle" />
+
+                <ImageButton
+                    android:id="@+id/loadImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/upload"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="Описание для доступности"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageButton
+                    android:id="@+id/saveImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/save"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="Описание для доступности"
+                    android:layout_below="@id/loadImageButton"
+                    android:layout_alignParentStart="true" />
+
+
+            </RelativeLayout>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

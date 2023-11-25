@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -18,8 +18,8 @@ class MyTable : Fragment() {
   private lateinit var tableLayout: TableLayout
   private lateinit var view: CustomDrawingView
   private lateinit var fragmentView: View
-  private lateinit var saveButton: Button
-  private lateinit var loadButton: Button
+  private lateinit var saveImageButton: ImageButton
+  private lateinit var loadImageButton: ImageButton
 
   override fun onCreateView (
     inflater: LayoutInflater,
@@ -50,8 +50,8 @@ class MyTable : Fragment() {
 
     view.defineTable(this)
 
-    loadButton = fragmentView.findViewById(R.id.loadButton)
-    saveButton = fragmentView.findViewById(R.id.saveButton)
+    loadImageButton = fragmentView.findViewById(R.id.loadImageButton)
+    saveImageButton = fragmentView.findViewById(R.id.saveImageButton)
   }
 
   private fun defineLayout (layout: TableLayout) {
@@ -61,8 +61,8 @@ class MyTable : Fragment() {
   }
 
   private fun setupListeners () {
-    loadButton.setOnClickListener { retrieveData() }
-    saveButton.setOnClickListener { saveData()}
+    loadImageButton.setOnClickListener { retrieveData() }
+    saveImageButton.setOnClickListener { saveData()}
   }
 
   private fun saveData() {
