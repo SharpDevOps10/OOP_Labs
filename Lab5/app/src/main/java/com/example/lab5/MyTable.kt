@@ -125,29 +125,41 @@ class MyTable : Fragment() {
   }
 
   private fun configureRowEvents (shapeRow: TableRow, shapeCoordinate: ShapeCoordinate) {
-    for (i in 0 until shapeRow.childCount) {
-      val textView: TextView = shapeRow.getChildAt(i) as TextView
-      textView.setTextColor(Color.BLACK)
-    }
+    resetTextViewColors(shapeRow)
 
     shapeRow.setOnLongClickListener {
-      removeAndShift(view.receiveShapes().indexOf(shapeCoordinate.shapeReference), view.receiveShapes())
-      tableLayout.removeViewInLayout(shapeRow)
-      shapeCoordinates.remove(shapeCoordinate)
-      tableLayout.invalidate()
-      view.invalidate()
+      handleRowLongClick(shapeRow, shapeCoordinate)
       true
     }
 
     shapeRow.setOnClickListener {
-      for (i in 0 until shapeRow.childCount) {
-        val textView: TextView = shapeRow.getChildAt(i) as TextView
-        if (!shapeCoordinate.shapeReference.receiveHighlightingCondition()) textView.setTextColor(Color.GREEN)
-        else textView.setTextColor(Color.BLACK)
-      }
-      shapeCoordinate.shapeReference.defineHighlightingMode()
-      view.invalidate()
+      handleRowClick(shapeRow, shapeCoordinate)
     }
+  }
+
+  private fun resetTextViewColors (shapeRow: TableRow) {
+    for (i in 0 until shapeRow.childCount) {
+      val textView: TextView = shapeRow.getChildAt(i) as TextView
+      textView.setTextColor(Color.BLACK)
+    }
+  }
+
+  private fun handleRowLongClick (shapeRow: TableRow, shapeCoordinate: ShapeCoordinate) {
+    removeAndShift(view.receiveShapes().indexOf(shapeCoordinate.shapeReference), view.receiveShapes())
+    tableLayout.removeViewInLayout(shapeRow)
+    shapeCoordinates.remove(shapeCoordinate)
+    tableLayout.invalidate()
+    view.invalidate()
+  }
+
+  private fun handleRowClick (shapeRow: TableRow, shapeCoordinate: ShapeCoordinate) {
+    for (i in 0 until shapeRow.childCount) {
+      val textView: TextView = shapeRow.getChildAt(i) as TextView
+      val textColor = if (!shapeCoordinate.shapeReference.receiveHighlightingCondition()) Color.GREEN else Color.BLACK
+      textView.setTextColor(textColor)
+    }
+    shapeCoordinate.shapeReference.defineHighlightingMode()
+    view.invalidate()
   }
 
   private fun emptyRows () {

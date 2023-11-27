@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.PathEffect
-import java.math.RoundingMode
 import java.text.DecimalFormat
 
 open class Shape (protected var paintSettings : Paint) {
@@ -57,9 +56,7 @@ open class Shape (protected var paintSettings : Paint) {
   }
 
   private fun alignCoordinates (coordinate: Float): String {
-    val decimalFormat = DecimalFormat("#.##").apply {
-      roundingMode = RoundingMode.DOWN
-    }
+    val decimalFormat = DecimalFormat("0.00")
     return decimalFormat.format(coordinate) + "\t".repeat(5)
   }
 

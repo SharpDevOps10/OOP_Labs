@@ -97,7 +97,7 @@ class CustomDrawingView (context: Context, attributeSet: AttributeSet): View(con
   private fun createShapeFromFields (fields: List<String>): Shape {
     val shapeType = Class.forName(fields[0])
     val constructor = shapeType.getConstructor(Paint::class.java)
-    val shape  = constructor.newInstance(drawingSetting) as Shape
+    val shape = constructor.newInstance(drawingSetting) as Shape
 
     shape.apply {
       defineStartCoordinates(fields[1].toFloat(), fields[2].toFloat())
