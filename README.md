@@ -21,6 +21,7 @@ $ git clone https://github.com/SharpDevOps10/OOP_Labs.git
 3. [Лабораторна робота No3. Розробка інтерфейсу користувача на C++(Kotlin)](https://github.com/SharpDevOps10/OOP_Labs/tree/main/Lab3)
 4. [Лабораторна робота No4. Вдосконалення структури коду графічного редактора об’єктів на C++ (Kotlin)](https://github.com/SharpDevOps10/OOP_Labs/tree/main/Lab4)
 5. [Лабораторна робота No5. Розробка багатовіконного інтерфейсу користувача для графічного редактора об’єктів](https://github.com/SharpDevOps10/OOP_Labs/tree/main/Lab5)
+6. [Лабораторна робота No6. Побудування програмної системи з множиниоб’єктів, керованих повідомленнями](https://github.com/SharpDevOps10/OOP_Labs/tree/main/Lab6)
 
 ## Плагіат?
 
