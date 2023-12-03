@@ -5,25 +5,28 @@
     android:id="@+id/n"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-28dp">
 
     <Button
         android:id="@+id/perform_button"
-        android:layout_width="351dp"
-        android:layout_height="56dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
         android:text="Виконати"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.742" />
+        app:layout_constraintVertical_bias="0.64" />
 
     <EditText
         android:id="@+id/xMin_text"
-        android:layout_width="340dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="132dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="104dp"
         android:ems="10"
         android:hint="Мінімальний X"
         android:inputType="number"
@@ -34,9 +37,9 @@
 
     <EditText
         android:id="@+id/number_text"
-        android:layout_width="340dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Кількість точок"
         android:inputType="number"
@@ -47,35 +50,35 @@
 
     <EditText
         android:id="@+id/yMin_text"
-        android:layout_width="340dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="328dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="272dp"
         android:ems="10"
         android:hint="Мінімальний Y"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/yMax_text"
-        android:layout_width="340dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="416dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="348dp"
         android:ems="10"
         android:hint="Максимальний Y"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/xMax_text"
-        android:layout_width="340dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="228dp"
+        android:layout_width="338dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="188dp"
         android:ems="10"
         android:hint="Максимальний X"
         android:inputType="number"
