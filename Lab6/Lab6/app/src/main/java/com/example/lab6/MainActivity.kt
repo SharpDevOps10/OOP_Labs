@@ -7,31 +7,42 @@ import android.widget.Button
 import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
-  private lateinit var nEditText: EditText
-  private lateinit var minEditText: EditText
-  private lateinit var maxEditText: EditText
-  private lateinit var submitButton: Button
+  private lateinit var pointsNumber: EditText
+  private lateinit var minX: EditText
+  private lateinit var maxX: EditText
+  private lateinit var performButton: Button
+  private lateinit var minY: EditText
+  private lateinit var maxY: EditText
   override fun onCreate (savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    nEditText = findViewById(R.id.n_edit_text)
-    minEditText = findViewById(R.id.min_edit_text)
-    maxEditText = findViewById(R.id.max_edit_text)
-    submitButton = findViewById(R.id.submit_button)
+    pointsNumber = findViewById(R.id.number_text)
+    minX = findViewById(R.id.xMin_text)
+    maxX = findViewById(R.id.xMax_text)
+    performButton = findViewById(R.id.perform_button)
+    minY = findViewById(R.id.yMin_text)
+    maxY = findViewById(R.id.yMax_text)
 
-    submitButton.setOnClickListener {
+    performButton.setOnClickListener {
       launchObject2Intent()
     }
   }
 
   private fun launchObject2Intent () {
     val object2Intent: Intent? = packageManager.getLaunchIntentForPackage("com.example.object2")
-    object2Intent!!.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-    object2Intent.putExtra("n", nEditText.text.toString().toInt())
-    object2Intent.putExtra("min", minEditText.text.toString().toFloat())
-    object2Intent.putExtra("max", maxEditText.text.toString().toFloat())
-    startActivity(object2Intent)
-  }
+    object2Intent?.apply {
+      addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+      addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
+      putExtra("n", pointsNumber.text.toString().toIntOrNull() ?: 0)
+      putExtra("minX", minX.text.toString().toIntOrNull() ?: 0)
+      putExtra("maxX", maxX.text.toString().toIntOrNull() ?: 0)
+      putExtra("minY", minY.text.toString().toIntOrNull() ?: 0)
+      putExtra("maxY", maxY.text.toString().toIntOrNull() ?: 0)
+
+      startActivity(this)
+    }
+  }
 }
