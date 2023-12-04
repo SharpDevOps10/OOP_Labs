@@ -3,6 +3,7 @@ package com.example.object2
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -21,8 +22,21 @@ class MainActivity : AppCompatActivity() {
     val yMax = intent.getIntExtra("maxY", 0)
 
     val points = generatePoints(nPoint, xMin, xMax, yMin, yMax)
-    displayPoints(points)
-    copyToClipboard(points, this)
+    val sortedPoints = sortPoints(points)
+    displayPoints(sortedPoints)
+    copyToClipboard(sortedPoints, this)
+
+    val obj3Intent = packageManager.getLaunchIntentForPackage("com.example.object3")
+    obj3Intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    startActivity(obj3Intent)
+  }
+
+  override fun onNewIntent (intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    val obj3Intent: Intent? = packageManager.getLaunchIntentForPackage("com.example.object3")
+    obj3Intent!!.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+    startActivity(obj3Intent)
   }
 
   private fun generatePoints (n: Int, xMin: Int, xMax: Int, yMin: Int, yMax: Int): List<Pair<Int, Int>> {
@@ -30,6 +44,11 @@ class MainActivity : AppCompatActivity() {
       Pair(Random.nextInt(xMin, xMax), Random.nextInt(yMin, yMax))
     }
   }
+
+  private fun sortPoints (points: List<Pair<Int, Int>>): List<Pair<Int, Int>> {
+    return points.sortedWith(compareBy({ it.first }, { it.second }))
+  }
+
   private fun displayPoints (points: List<Pair<Int, Int>>) {
     val textView: TextView = findViewById(R.id.textView)
     var string = "X\t\t\tY\n"
