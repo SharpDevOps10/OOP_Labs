@@ -6,7 +6,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.os.Handler
+import android.os.Looper
 import android.widget.TextView
 import kotlin.random.Random
 
@@ -27,10 +28,11 @@ class MainActivity : AppCompatActivity() {
     displayPoints(sortedPoints)
     copyToClipboard(sortedPoints, this)
 
-    val buttonNavigate: Button = findViewById(R.id.buttonNavigate)
-    buttonNavigate.setOnClickListener {
-      navigateToObject3()
-    }
+    Handler(Looper.getMainLooper()).postDelayed({
+      val obj3Intent = packageManager.getLaunchIntentForPackage("com.example.object3")
+      obj3Intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      startActivity(obj3Intent)
+    }, 2000)
   }
 
   override fun onNewIntent (intent: Intent?) {
@@ -72,11 +74,5 @@ class MainActivity : AppCompatActivity() {
 
     val clip = ClipData.newPlainText("coords", textToCopy)
     clipboard.setPrimaryClip(clip)
-  }
-
-  private fun navigateToObject3 () {
-    val obj3Intent = packageManager.getLaunchIntentForPackage("com.example.object3")
-    obj3Intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    startActivity(obj3Intent)
   }
 }
